@@ -1,0 +1,112 @@
+{
+    "name": "James Williamson",
+    "date_of_birth": "02.07.1970",
+    "nationality": "German",
+    "current_location": "London",
+    "main_qualification": "Staatlich geprüfter Maschinenbautechniker",
+    "work_experience": [
+        {
+            "company_name": "Dörries Scharmann Technologie GmbH",
+            "date_of_start": "09/1989",
+            "date_of_end": "01/1993",
+            "role": "Industriemechaniker",
+            "location": "Mönchengladbach",
+            "tasks": ["Not specified"],
+            "index": 0
+        },
+        {
+            "company_name": "Rheinische Landesklinik",
+            "date_of_start": "03/1993",
+            "date_of_end": "05/1994",
+            "role": "Zivildienst",
+            "location": "Düren",
+            "tasks": ["Not specified"],
+            "index": 1
+        },
+        {
+            "company_name": "RHEINBRAUN HAUSTECHNIK GmbH",
+            "date_of_start": "06/1994",
+            "date_of_end": "07/1994",
+            "role": "Gewerblicher Mitarbeiter",
+            "location": "Düren",
+            "tasks": ["Not specified"],
+            "index": 2
+        },
+        {
+            "company_name": "TEWS Maschinen- und Stahlbau GmbH",
+            "date_of_start": "08/1994",
+            "date_of_end": "11/1999",
+            "role": "Stahlbaumonteur",
+            "location": "Düren",
+            "tasks": [
+                "Processed various orders in steel construction and sheet metal fabrication",
+                "Assembled steel constructions, railings, stairs, and stage systems"
+            ],
+            "index": 3
+        },
+        {
+            "company_name": "Talbot Services GmbH (Bombardier GmbH)",
+            "date_of_start": "11/2002",
+            "date_of_end": "07/2003",
+            "role": "Maschinenbautechniker/Produktionsplaner",
+            "location": "Aachen",
+            "tasks": ["Not specified"],
+            "index": 4
+        },
+        {
+            "company_name": "MSB (ehemals Talbot Bombardier GmbH)",
+            "date_of_start": "08/2003",
+            "date_of_end": "05/2010",
+            "role": "Technischer Angestellter der Arbeitsvorbereitung",
+            "location": "Aachen",
+            "tasks": [
+                "Produktionsplanung",
+                "Koordination zwischen Konstruktion und Fertigung",
+                "Materialdisposition und Bestellwesen",
+                "Qualitätsmanagement"
+            ],
+            "index": 5
+        },
+        {
+            "company_name": "Kordt GmbH & Co. KG",
+            "date_of_start": "06/2010",
+            "date_of_end": "09/2022",
+            "role": "Fertigungsleiter",
+            "location": "Not specified",
+            "tasks": [
+                "Leitung der Fertigung",
+                "Koordination des Personal- und Materialeinsatzes",
+                "Verbesserung der fertigungsbezogenen Abläufe",
+                "Technische Kundenbetreuung und -beratung",
+                "Projektleitung und Prozessoptimierung"
+            ],
+            "index": 7
+        },
+        {
+            "company_name": "Wasserstoffunternehmen",
+            "date_of_start": "09/2022",
+            "date_of_end": "present",
+            "role": "Manufacturing Engineer",
+            "location": "London",
+            "tasks": ["Genaue Aufgaben nicht spezifiziert"],
+            "index": 8
+        }
+    ],
+    "education": [
+        {
+            "institution": "Rhein-Erft-Akademie GmbH, Hürth",
+            "diploma": "Geprüfter Technischer Betriebswirt (IHK)",
+            "date_of_start": "09.2005",
+            "certifications": [
+                "Ausbildereignung (IHK/AEVO)",
+                "Projektleiter (IHK)",
+                "REFA Grundausbildung"
+            ],
+            "date_of_end": "04.2007",
+            "index": 6
+        }
+    ],
+    "it_skills": [],
+    "other_qualification": ["IHK-Zertifiz"],
+    "languages": []
+}
