@@ -10,18 +10,16 @@ from typing import Optional
 
 app = FastAPI()
 
-class CVRequest(BaseModel):
-    cv_url: str
-    report_url: str
-    app_id: str
-    api_key: str
-
 class ResumeRequest(BaseModel):
     data: dict
 
-async def scrape_cv(cv_url: str, report_url: str, app_id: str, api_key: str):
+# Configurazione da variabili d'ambiente
+APP_ID = os.getenv("APP_ID")
+API_KEY = os.getenv("API_KEY")
+
+async def scrape_cv(cv_url: str, report_url: str):
     r = requests.post(
-        f"https://app.wordware.ai/api/released-app/{app_id}/run",
+        f"https://app.wordware.ai/api/released-app/{APP_ID}/run",
         json={
             "inputs": {
                 "CV": {
@@ -39,7 +37,7 @@ async def scrape_cv(cv_url: str, report_url: str, app_id: str, api_key: str):
                 "version": "^1.1"
             }
         },
-        headers={"Authorization": f"Bearer {api_key}"},
+        headers={"Authorization": f"Bearer {API_KEY}"},
         stream=True
     )
     
@@ -62,15 +60,10 @@ async def scrape_cv(cv_url: str, report_url: str, app_id: str, api_key: str):
     
     return json.loads(output) if output else None
 
-@app.post("/scrape-cv")
-async def scrape_cv_endpoint(request: CVRequest):
+@app.get("/scrape-cv")
+async def scrape_cv_endpoint(cv_url: str, report_url: str):
     try:
-        data = await scrape_cv(
-            request.cv_url,
-            request.report_url,
-            request.app_id,
-            request.api_key
-        )
+        data = await scrape_cv(cv_url, report_url)
         return {"status": "success", "data": data}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -101,23 +94,3 @@ async def generate_resume_endpoint(request: ResumeRequest):
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
-
-# requirements.txt
-"""
-fastapi==0.68.0
-uvicorn==0.15.0
-requests==2.31.0
-python-docx==0.8.11
-pydantic==1.8.2
-python-multipart==0.0.5
-"""
-
-# Procfile
-"""
-web: python main.py
-"""
-
-# runtime.txt
-"""
-python-3.9.16
-"""
