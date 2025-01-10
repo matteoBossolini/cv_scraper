@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 
 cv_url = "https://raw.githubusercontent.com/matteoBossolini/cv_scraper/5f3ade33fd280725d068b0e63d85a5503b7adac0/CV.pdf"
 report_url = "https://raw.githubusercontent.com/matteoBossolini/cv_scraper/5f3ade33fd280725d068b0e63d85a5503b7adac0/report.pdf"

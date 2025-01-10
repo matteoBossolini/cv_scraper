@@ -1,0 +1,147 @@
+{
+  "status": "completed",
+  "message": "Elaborazione completata",
+  "timestamp": "2025-01-10T15:18:24.932018",
+  "last_update": "2025-01-10T15:19:57.200753",
+  "data": {
+    "name": "James Williamson",
+    "date_of_birth": "July 02, 1970",
+    "nationality": "German",
+    "current_location": "London",
+    "main_qualification": "Staatlich gepr\u00fcfter Maschinenbautechniker",
+    "work_experience": [
+      {
+        "company_name": "NPROXX GmbH & Co. KG",
+        "date_of_start": "2022-09",
+        "date_of_end": "present",
+        "role": "Manufacturing Engineer",
+        "location": "J\u00fclich",
+        "tasks": [
+          "Lead of assembly and process engineer",
+          "Coordination of production processes",
+          "Responsibility for on-time delivery and further development of processes",
+          "Technical documentation"
+        ],
+        "index": 0
+      },
+      {
+        "company_name": "Kordt GmbH & Co. KG",
+        "date_of_start": "2010-06",
+        "date_of_end": "2022-09",
+        "role": "Production Manager",
+        "location": "Eschweiler",
+        "tasks": [
+          "Technical and disciplinary supervisor of production",
+          "Scheduling and coordination of personnel and material deployment",
+          "Make-or-buy decisions for soft machining (turning, milling)",
+          "Technical contact person for suppliers",
+          "Preparation and development of documents for production",
+          "Planning and tendering of production orders",
+          "Improvement of production processes",
+          "Support in the development of internal company standards and regulations",
+          "Technical support of customers including customer consulting",
+          "Participation in trade fairs and speaker at training courses",
+          "Successful management of several internal customer-related projects",
+          "Examination of customer inquiries for feasibility",
+          "Analyses of work processes and their cost-technical status for management",
+          "Preparation of preliminary and final calculations, determination of working times using BDE",
+          "Safety officer for production (from 2021)",
+          "Central contact person for trainees and external training companies (from 2017)"
+        ],
+        "index": 1
+      },
+      {
+        "company_name": "MSB Maschinen- und Stahlbau GmbH & Co. KG",
+        "date_of_start": "2003-08",
+        "date_of_end": "2010-05",
+        "role": "Technical Employee in Production Planning",
+        "location": "D\u00fcren",
+        "tasks": [
+          "Material disposition via stock lists and checking steel profiles in the workshop",
+          "Processing drawings and triggering orders for purchased parts",
+          "Checking order confirmations for purchased parts",
+          "Tracking deadlines via the production status of individual orders",
+          "Creation of cutting templates for conveyor technology orders",
+          "Coordination between design and production",
+          "Input and maintenance of individual sections of the QMS",
+          "Maintenance of drawing indexes",
+          "Support of management through organizational tasks in the workshop and reporting to management"
+        ],
+        "index": 2
+      },
+      {
+        "company_name": "Talbot Services GmbH (Bombardier GmbH)",
+        "date_of_start": "2002-11",
+        "date_of_end": "2003-07",
+        "role": "Mechanical Engineer/Production Planner",
+        "location": "Aachen",
+        "tasks": [
+          "Production planning"
+        ],
+        "index": 3
+      },
+      {
+        "company_name": "TEWS Maschinen- und Stahlbau GmbH",
+        "date_of_start": "1994-08",
+        "date_of_end": "1999-11",
+        "role": "Steel Construction Fitter",
+        "location": "D\u00fcren",
+        "tasks": [
+          "Assembly of steel constructions, railings, stairs and stage systems"
+        ],
+        "index": 5
+      }
+    ],
+    "education": [
+      {
+        "institution": "Rheinische Akademie K\u00f6ln gGmbH",
+        "diploma": "Staatlich gepr\u00fcfter Techniker - Maschinentechnik",
+        "date_of_start": "1999-12",
+        "certifications": [
+          "State-certified Technician exam in Mechanical Engineering, specializing in Systems and Automation Technology. Grade: Good."
+        ],
+        "date_of_end": "2002-07-10",
+        "index": 4
+      },
+      {
+        "institution": "Rhein-Erft-Akademie GmbH",
+        "diploma": "Gepr\u00fcfter Technischer Betriebswirt (IHK)",
+        "date_of_start": "2005-09",
+        "certifications": [
+          "Certified Technical Business Administrator"
+        ],
+        "date_of_end": "2007-04-17",
+        "index": 3
+      }
+    ],
+    "it_skills": [
+      "SAP",
+      "MS Office Suite"
+    ],
+    "other_qualification": [
+      "IHK Certification 'Project Manager'",
+      "IHK Certification 'Specialist for Project Management'",
+      "Acquisition of teaching qualification (IHK/AEVO)",
+      "REFA qualifications in work organization, statistics, quality methods, quality management, and cost accounting",
+      "Driving license class B"
+    ],
+    "languages": [
+      {
+        "language": [
+          "English"
+        ],
+        "level": [
+          "professional"
+        ]
+      },
+      {
+        "language": [
+          "German"
+        ],
+        "level": [
+          "professional"
+        ]
+      }
+    ]
+  }
+}
