@@ -1,5 +1,5 @@
 # main.py
-from fastapi import FastAPI, HTTPException, BackgroundTasks
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import uvicorn
 import requests
@@ -7,16 +7,24 @@ import json
 import os
 from docx import Document
 from typing import Optional, Dict
-import asyncio
 from datetime import datetime, timedelta
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 
 app = FastAPI()
-
-# Dizionario per memorizzare i risultati temporaneamente
+executor = ThreadPoolExecutor(max_workers=3)
 results_store: Dict[str, dict] = {}
 
-async def scrape_cv(task_id: str, cv_url: str, report_url: str):
+def scrape_cv_task(task_id: str, cv_url: str, report_url: str):
     try:
+        # Aggiorna lo stato a running
+        results_store[task_id].update({
+            "status": "running",
+            "progress": "Inizializzazione richiesta",
+            "last_update": datetime.now()
+        })
+
+        # Timeout lungo per la richiesta a Wordware (4 minuti)
         r = requests.post(
             f"https://app.wordware.ai/api/released-app/{os.getenv('APP_ID')}/run",
             json={
@@ -37,8 +45,14 @@ async def scrape_cv(task_id: str, cv_url: str, report_url: str):
                 }
             },
             headers={"Authorization": f"Bearer {os.getenv('API_KEY')}"},
-            stream=True
+            stream=True,
+            timeout=240  # 4 minuti
         )
+        
+        results_store[task_id].update({
+            "progress": "Elaborazione risposta",
+            "last_update": datetime.now()
+        })
         
         output = ""
         to_print = False
@@ -53,29 +67,43 @@ async def scrape_cv(task_id: str, cv_url: str, report_url: str):
                         to_print = False
                 elif value['type'] == "chunk" and to_print:
                     output += value['value']
+                
+                # Aggiorna lo stato ogni 10 secondi
+                if (datetime.now() - results_store[task_id]["last_update"]).seconds >= 10:
+                    results_store[task_id].update({
+                        "progress": "Elaborazione in corso...",
+                        "last_update": datetime.now()
+                    })
         
-        results_store[task_id] = {
+        # Salva il risultato finale
+        results_store[task_id].update({
             "status": "completed",
             "data": json.loads(output) if output else None,
-            "timestamp": datetime.now()
-        }
+            "progress": "Completato",
+            "last_update": datetime.now()
+        })
     except Exception as e:
-        results_store[task_id] = {
+        results_store[task_id].update({
             "status": "error",
             "error": str(e),
-            "timestamp": datetime.now()
-        }
+            "last_update": datetime.now()
+        })
 
 @app.get("/scrape-cv")
-async def scrape_cv_endpoint(background_tasks: BackgroundTasks, cv_url: str, report_url: str):
+async def scrape_cv_endpoint(cv_url: str, report_url: str):
     task_id = f"task_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{os.urandom(4).hex()}"
     
+    # Inizializza il task nello store
     results_store[task_id] = {
-        "status": "processing",
-        "timestamp": datetime.now()
+        "status": "initiated",
+        "progress": "Task creato",
+        "timestamp": datetime.now(),
+        "last_update": datetime.now()
     }
     
-    background_tasks.add_task(scrape_cv, task_id, cv_url, report_url)
+    # Avvia il task in background
+    loop = asyncio.get_event_loop()
+    loop.run_in_executor(executor, scrape_cv_task, task_id, cv_url, report_url)
     
     return {
         "status": "accepted",
@@ -85,24 +113,16 @@ async def scrape_cv_endpoint(background_tasks: BackgroundTasks, cv_url: str, rep
 
 @app.get("/status/{task_id}")
 async def get_status(task_id: str):
-    # Pulizia risultati vecchi
+    # Pulizia risultati vecchi (mantieni per 2 ore)
     current_time = datetime.now()
-    to_remove = []
-    for tid, result in results_store.items():
-        if current_time - result["timestamp"] > timedelta(hours=1):
-            to_remove.append(tid)
+    to_remove = [tid for tid, result in results_store.items() 
+                if current_time - result["timestamp"] > timedelta(hours=2)]
     for tid in to_remove:
         results_store.pop(tid, None)
     
     result = results_store.get(task_id)
     if not result:
         raise HTTPException(status_code=404, detail="Task not found")
-    
-    if result["status"] == "completed":
-        data = result.copy()
-        # Rimuovi il risultato dallo store dopo averlo restituito
-        results_store.pop(task_id, None)
-        return data
     
     return result
 
