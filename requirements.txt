@@ -1,0 +1,10 @@
+fastapi==0.68.0
+uvicorn==0.15.0
+requests==2.31.0
+python-docx==0.8.11
+pydantic==1.8.2
+python-multipart==0.0.5
+python-dotenv==0.19.0
+typing-extensions>=3.7.4
+starlette>=0.13.6
+click>=7.0
