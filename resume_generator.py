@@ -27,6 +27,19 @@ def add_formatted_paragraph(cell, text, bold=False, italic=False, font_size=11, 
     paragraph.space_after = Pt(space_after)
     return paragraph
 
+def format_languages(languages):
+    if not languages:
+        return "Not specified"
+    
+    formatted_languages = []
+    for lang_entry in languages:
+        if lang_entry.get("language") and lang_entry.get("level"):
+            lang = lang_entry["language"][0]
+            level = lang_entry["level"][0].capitalize()
+            formatted_languages.append(f"{lang} ({level})")
+    
+    return ", ".join(formatted_languages) if formatted_languages else "Not specified"
+
 def create_resume(data):
     doc = Document()
     
@@ -120,14 +133,14 @@ def create_resume(data):
             role_p = title_cell.add_paragraph()
             role_p.space_after = Pt(2)
             role_company = f"{exp['data']['role']}, {exp['data']['company_name']}"
-            if exp['data']['location'] != "Not specified":
+            if exp['data'].get('location') and exp['data']['location'] != "Not specified":
                 role_company += f", {exp['data']['location']}"
             role_run = role_p.add_run(role_company)
             role_run.bold = True
             role_run.font.size = Pt(11)
             
             # Tasks
-            if exp["data"]["tasks"] and exp["data"]["tasks"][0] != "Not specified":
+            if exp["data"].get("tasks"):
                 for task in exp["data"]["tasks"]:
                     task_p = title_cell.add_paragraph()
                     task_p.space_after = Pt(2)
@@ -156,7 +169,7 @@ def create_resume(data):
             qual_run.font.size = Pt(11)
             
             # Certifications
-            if exp["data"]["certifications"]:
+            if exp["data"].get("certifications"):
                 for cert in exp["data"]["certifications"]:
                     cert_p = title_cell.add_paragraph()
                     cert_p.space_after = Pt(2)
@@ -166,9 +179,10 @@ def create_resume(data):
         # Add minimal spacing between entries
         title_cell.add_paragraph().space_after = Pt(4)
 
-    # Additional information
-    if data.get("it_skills") or data.get("languages"):
-        additional_table = title_cell.add_table(rows=2, cols=2)
+    # Additional information section
+    if data.get("it_skills") or data.get("languages") or data.get("other_qualification"):
+        # Create table for additional information
+        additional_table = title_cell.add_table(rows=3, cols=2)
         for row in additional_table.rows:
             row.cells[0].width = Inches(2)
             row.cells[1].width = Inches(4)
@@ -181,10 +195,16 @@ def create_resume(data):
         # Languages
         add_formatted_paragraph(additional_table.rows[1].cells[0], "Sprachkenntnisse:", space_after=0)
         add_formatted_paragraph(additional_table.rows[1].cells[1], 
-                              ", ".join(data.get("languages", ["Not specified"])), space_after=0)
+                              format_languages(data.get("languages", [])), space_after=0)
+        
+        # Other qualifications
+        add_formatted_paragraph(additional_table.rows[2].cells[0], "Sonstige Qualifikationen:", space_after=0)
+        add_formatted_paragraph(additional_table.rows[2].cells[1], 
+                              "; ".join(data.get("other_qualification", ["Not specified"])), space_after=0)
 
     # Save the document
     doc.save('resume.docx')
+
 
 with open('data.json', 'r') as f:
     data = json.load(f)
